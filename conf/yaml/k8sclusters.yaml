@@ -1,0 +1,184 @@
+name: k8sclusters
+id: 0011-0000-0000-0000
+parent_id: 0000-0000-0000-0000
+base_url: "/webase/api/v2/k8sclusters/:cluster_id"
+action:
+  - name: "create"
+    url: "/webase/api/v2/k8sclusters"
+  - name: "list"
+    url: "/webase/api/v2/k8sclusters"
+  - name: "get"
+    url: "/webase/api/v2/k8sclusters/:cluster_id"
+  - name: "delete"
+    url: "/webase/api/v2/k8sclusters/:cluster_id"
+children:
+  - name: members
+    id: 0011-0001-0000-0000
+    parent_id: 0011-0000-0000-0000
+    base_url: "/webase/api/v2/k8sclusters/:cluster_id/members/*"
+    action:
+      - name: "create"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/members"
+      - name: "list"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/members"
+      - name: "delete"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/members/:member_id"
+    children: []
+  - name: resources
+    id: 0011-0010-0000-0000
+    parent_id: 0011-0000-0000-0000
+    base_url: "/webase/api/v2/k8sclusters/:cluster_id/resources"
+    action: 
+      - name: "create"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/resources"
+      - name: "list"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/resources"
+      - name: "get"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/resources"
+      - name: "delete"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/resources"
+      - name: "update"
+        url: "/webase/api/v2/k8sclusters/:cluster_id/resources"
+    children: 
+      - name: namespaces
+        id: 0011-0010-0001-0000
+        parent_id: 0011-0010-0000-0000
+        base_url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/*"
+        action:
+          - name: "create"
+            url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces"
+          - name: "list"
+            url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces"
+          - name: "get"
+            url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/:namespace"
+          - name: "delete"
+            url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/:namespace"
+          - name: "update"
+            url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/:namespace"
+        children: 
+          - name: members
+            id: 0011-0010-0001-0001
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/:namespace/members/*"
+            action:
+              - name: "create"
+                url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/:namespace/members"
+              - name: "list"
+                url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/:namespace/members"
+              - name: "delete"
+                url: "/webase/api/v2/k8sclusters/:cluster_id/resources/namespaces/:namespace/members/:member_id"
+            children: []
+          - name: deployments
+            id: 0011-0010-0001-0010
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/deployment/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/deployment/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/deployment/:namespace/:deployment"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/deployment/namespace/:namespace/name/*"
+            children: [] 
+          - name: pods
+            id: 0011-0010-0001-0011
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/pod/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/pod/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/pod/:namespace/:pod"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/pod/namespace/:namespace/name/*"
+            children: []
+          - name: daemonsets
+            id: 0011-0010-0001-0100
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/daemonset/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/daemonset/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/daemonset/:namespace/:daemonset"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/daemonset/namespace/:namespace/name/*"
+            children: []
+          - name: statefulsets
+            id: 0011-0010-0001-0101
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/statefulset/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/statefulset/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/statefulset/:namespace/:statefulset"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/statefulset/namespace/:namespace/name/*"
+            children: []
+          - name: services
+            id: 0011-0010-0001-0110
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/service/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/service/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/service/:namespace/:service"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/service/namespace/:namespace/name/*"
+            children: []
+          - name: secrets
+            id: 0011-0010-0001-0111
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/secret/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/secret/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/secret/:namespace/:secret"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/secret/namespace/:namespace/name/*"
+            children: []
+          - name: configmaps
+            id: 0011-0010-0001-1000
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/configmap/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/configmap/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/configmap/:namespace/:configmap"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/configmap/namespace/:namespace/name/*"
+            children: []
+          - name: persistentvolumes
+            id: 0011-0010-0001-1001
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/persistentvolume/:persistentvolume"
+            action:
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/namespace/:namespace/name/:persistentvolume"
+            children: []
+          - name: persistentvolumeclaims
+            id: 0011-0010-0001-1010
+            parent_id: 0011-0010-0001-0000
+            base_url: "/webase/api/k8s/:cluster_id/persistentvolumeclaim/:namespace/*"
+            action:
+              - name: "list"
+                url: "/webase/api/k8s/:cluster_id/persistentvolumeclaim/:namespace"
+              - name: "get"
+                url: "/webase/api/k8s/:cluster_id/persistentvolumeclaim/:namespace/:persistentvolumeclaim"
+              - name: "delete"
+                url: "/webase/api/k8s/:cluster_id/_raw/persistentvolumeclaim/namespace/:namespace/name/*"
+            children: []
+      - name: storageclasses
+        id: 0011-0010-0010-0000
+        parent_id: 0011-0010-0000-0000
+        base_url: "/webase/api/k8s/:cluster_id/storageclass/:storageclass"
+        action: 
+          - name: "list"
+            url: "/webase/api/k8s/:cluster_id/storageclass"
+          - name: "get"
+            url: "/webase/api/k8s/:cluster_id/storageclass/:storageclass"
+        children: []

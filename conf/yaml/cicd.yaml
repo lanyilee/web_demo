@@ -1,0 +1,16 @@
+name: cicd
+id: 0111-0000-0000-0000
+parent_id: 0000-0000-0000-0000
+base_url: "*"
+action: 
+  - name: "create"
+    url: "*"
+  - name: "list"
+    url: "*"
+  - name: "get"
+    url: "*"
+  - name: "delete"
+    url: "*"
+  - name: "update"
+    url: "*"
+children: []

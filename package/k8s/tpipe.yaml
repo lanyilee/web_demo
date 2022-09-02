@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpipe-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpipe-server
+  template:
+    metadata:
+      labels:
+        app: tpipe-server
+    spec:
+      containers:
+        - name: tpipe-server
+          image: tpipeline/tpipe-server
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 80
+          env:
+            - name: DRONE_GIT_ALWAYS_AUTH
+              value: "false"
+            - name: DRONE_GITLAB_SERVER
+              value: "http://191.8.9.60:11000"
+            - name: DRONE_GITLAB_CLIENT_ID
+              value: "b3a2f510f5e844ade33674178850ddbb14f667855f1e8b2033bd497110a0a53a"
+            - name: DRONE_GITLAB_CLIENT_SECRET
+              value: "7995bf1209dc2a7a2fc35626a1192206485a288cca70ffb603564067aed36f30"
+            - name: DRONE_RUNNER_CAPACITY
+              value: "20"
+            - name: DRONE_SERVER_HOST
+              value: "188.8.4.9:38401"
+            - name: DRONE_SERVER_PROTO
+              value: "https"
+            - name: DRONE_SERVER_PORT
+              value: ":80"
+            - name: DRONE_USER_CREATE
+              value: "username:root,admin:true"
+            - name: DRONE_LOGS_DEBUG
+              value: "true"
+            - name: DRONE_RUNNER_PRIVILEGED_IMAGES
+              value: "plugins/docker"
+            - name: DRONE_DATABASE_DRIVER
+              value: "mysql"
+            - name: DRONE_DATABASE_DATASOURCE
+              value: "root:WebaseQwer1234@tcp(webase-mysql:3306)/tpipe"
+            - name: DRONE_RPC_SECRET
+              value: "qwer1234"
+            - name: TPIPE_HARBOR_REGISTRY
+              value: "191.8.9.100:5000"
+            - name: TPIPE_HARBOR_INSECURE
+              value: "true"
+            - name: TPIPE_HARBOR_PROJECT
+              value: "plugins"
+            - name: TPIPE_HARBOR_USER
+              value: "admin"
+            - name: TPIPE_HARBOR_PASSWORD
+              value: "Harbor12345"
+            - name: TPIPE_DOCKER_DAEMON
+              value: "true"
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tpipe-server
+spec:
+  selector:
+    app: tpipe-server
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 38501

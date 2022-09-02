@@ -1,0 +1,319 @@
+name: menu
+id: 0001-0000-0000-0000
+parent_id: 0000-0000-0000-0000
+children:
+  - name: 集群管理
+    id: 0001-0001-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: cloud
+    url: ""
+    children:
+      - name: 集群列表
+        id: 0001-0001-0001-0000
+        parent_id: 0001-0001-0000-0000
+        url: "clusters/list"
+        children: []
+      - name: 集群监控
+        id: 0001-0001-0010-0000
+        parent_id: 0001-0001-0000-0000
+        url: ""
+        children: []
+  - name: 集群资源
+    id: 0001-0010-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: appstore
+    url: ""
+    children:
+      - name: 主机管理
+        id: 0001-0010-0001-0000
+        parent_id: 0001-0010-0000-0000
+        url: "clusters/hosts"
+        children: []
+      - name: 工作节点
+        id: 0001-0010-0010-0000
+        parent_id: 0001-0010-0000-0000
+        url: ""
+        children: [] 
+      - name: 命名空间
+        id: 0001-0010-0011-0000
+        parent_id: 0001-0010-0000-0000
+        url: "clusters/namespace"
+        children: [] 
+      - name: 存储管理
+        id: 0001-0010-0100-0000
+        parent_id: 0001-0010-0000-0000
+        url: "clusters/namespace"
+        children: [] 
+      - name: 网络管理
+        id: 0001-0010-0101-0000
+        parent_id: 0001-0010-0000-0000
+        url: "clusters/namespace"
+        children: []
+  - name: 虚机管理
+    id: 0001-0011-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: control
+    url: ""
+    children:
+      - name: 虚机模板
+        id: 0001-0011-0001-0000
+        parent_id: 0001-0011-0000-0000
+        url: "iaas/vmodel"
+        children: []
+      - name: 虚机实例
+        id: 0001-0011-0010-0000
+        parent_id: 0001-0011-0000-0000
+        url: "iaas/instance"
+        children: [] 
+  - name: 报表管理
+    id: 0001-0100-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: line-chart
+    url: ""
+    children:
+      - name: 报表面板
+        id: 0001-0100-0001-0000
+        parent_id: 0001-0100-0000-0000
+        url: "kibana/dashboards"
+        children: []
+      - name: 报表视图
+        id: 0001-0100-0010-0000
+        parent_id: 0001-0100-0000-0000
+        url: "kibana/visualizations"
+        children: []
+      - name: 索引模板
+        id: 0001-0100-0011-0000
+        parent_id: 0001-0100-0000-0000
+        url: "kibana/indexPatterns"
+        children: []
+      - name: 管理工具
+        id: 0001-0100-0100-0000
+        parent_id: 0001-0100-0000-0000
+        url: ""
+        children: 
+          - name: 配置管理
+            id: 0001-0100-0100-0001
+            parent_id: 0001-0100-0100-0000
+            url: "kibana/objects"
+            children: []
+          - name: 标签管理
+            id: 0001-0100-0100-0010
+            parent_id: 0001-0100-0100-0000
+            url: "kibana/tags"
+            children: []
+          - name: 发现
+            id: 0001-0100-0100-0011
+            parent_id: 0001-0100-0100-0000
+            url: "kibana/discover"
+            children: []                 
+  - name: 监控告警
+    id: 0001-0101-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: alert
+    url: ""
+    children:
+      - name: 监控
+        id: 0001-0101-0001-0000
+        parent_id: 0001-0101-0000-0000
+        url: "monitor/monitor"
+        children: []
+  - name: 应用管理
+    id: 0001-0110-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: switcher
+    url: ""
+    children:
+      - name: Helm应用
+        id: 0001-0110-0001-0000
+        parent_id: 0001-0110-0000-0000
+        url: "chart/apps"
+        children: []
+      - name: DockerCompose
+        id: 0001-0110-0010-0000
+        parent_id: 0001-0110-0000-0000
+        url: "chart/dockerCompose"
+        children: []
+      - name: 服务网格应用
+        id: 0001-0110-0011-0000
+        parent_id: 0001-0110-0000-0000
+        url: "istio/application"
+        children: []
+      - name: 服务网格拓扑
+        id: 0001-0110-0100-0000
+        parent_id: 0001-0110-0000-0000
+        url: "istio/kiali"
+        children: []  
+      - name: 服务网格策略
+        id: 0001-0110-0101-0000
+        parent_id: 0001-0110-0000-0000
+        url: "istio/istioService"
+        children: []
+  - name: 工作负载
+    id: 0001-0111-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: sliders
+    url: ""
+    children:
+      - name: Deployment
+        id: 0001-0111-0001-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/deployment"
+        children: []
+      - name: Statefulset
+        id: 0001-0111-0010-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/statefulset"
+        children: []
+      - name: 容器组（Pod）
+        id: 0001-0111-0011-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/pod"
+        children: []
+      - name: DaemonSet
+        id: 0001-0111-0100-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/daemonset"
+        children: []  
+      - name: Job
+        id: 0001-0111-0101-0000
+        parent_id: 0001-0111-0000-0000
+        url: ""
+        children: []
+      - name: ConfigMap
+        id: 0001-0111-0110-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/configmap"
+        children: []
+      - name: Service
+        id: 0001-0111-0111-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/service"
+        children: []
+      - name: pv
+        id: 0001-0111-1000-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/pv"
+        children: []
+      - name: pvc
+        id: 0001-0111-1001-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/pvc"
+        children: []
+      - name: secret
+        id: 0001-0111-1010-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/secret"
+        children: []
+      - name: storageclass
+        id: 0001-0111-1011-0000
+        parent_id: 0001-0111-0000-0000
+        url: "k8s/storageclass"
+        children: []
+  - name: 软件/镜像管理
+    id: 0001-1000-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: cloud-sync
+    url: ""
+    children:
+      - name: 镜像管理
+        id: 0001-1000-0001-0000
+        parent_id: 0001-1000-0000-0000
+        url: "mirror/images"
+        children: []
+      - name: Helm模板目录
+        id: 0001-1000-0010-0000
+        parent_id: 0001-1000-0000-0000
+        url: "chart/charts"
+        children: []
+      - name: Nexus仓库管理
+        id: 0001-1000-0011-0000
+        parent_id: 0001-1000-0000-0000
+        url: "nexus/repositories"
+        children: []
+      - name: Harbor仓库管理
+        id: 0001-1000-0100-0000
+        parent_id: 0001-1000-0000-0000
+        url: "mirror/projects"
+        children: []  
+  - name: CICD
+    id: 0001-1001-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: code
+    url: ""
+    children:
+      - name: 项目列表
+        id: 0001-1001-0001-0000
+        parent_id: 0001-1001-0000-0000
+        url: "cicd/ci-cd"
+        children: []
+      - name: 流水线列表
+        id: 0001-1001-0010-0000
+        parent_id: 0001-1001-0000-0000
+        url: "cicd/pipelineList"
+        children: []
+      - name: 流水线模板
+        id: 0001-1001-0011-0000
+        parent_id: 0001-1001-0000-0000
+        url: "cicd/ci-cdTemplates"
+        children: []
+      - name: 构建列表
+        id: 0001-1001-0100-0000
+        parent_id: 0001-1001-0000-0000
+        url: "cicd/ci-cd/buildList"
+        children: []
+      - name: 插件列表
+        id: 0001-1001-0101-0000
+        parent_id: 0001-1001-0000-0000
+        url: "cicd/pluginsList"
+        children: [] 
+      - name: 定时任务
+        id: 0001-1001-0110-0000
+        parent_id: 0001-1001-0000-0000
+        url: "cicd/cron"
+        children: [] 
+      - name: 加密参数
+        id: 0001-1001-0111-0000
+        parent_id: 0001-1001-0000-0000
+        url: "cicd/secert"
+        children: []  
+  - name: 安全管理
+    id: 0001-1010-0000-0000
+    parent_id: 0001-0000-0000-0000
+    icon: user
+    url: ""
+    children:
+      - name: 用户管理
+        id: 0001-1010-0001-0000
+        parent_id: 0001-1010-0000-0000
+        url: "users/userList"
+        children: []
+      - name: 用户组
+        id: 0001-1010-0010-0000
+        parent_id: 0001-1010-0000-0000
+        url: "users/groups"
+        children: []
+      - name: 角色管理
+        id: 0001-1010-0011-0000
+        parent_id: 0001-1010-0000-0000
+        url: "users/roles"
+        children: []
+      - name: 角色模板
+        id: 0001-1010-0100-0000
+        parent_id: 0001-1010-0000-0000
+        url: "users/rolestemplate"
+        children: []
+      - name: 角色绑定
+        id: 0001-1010-0101-0000
+        parent_id: 0001-1010-0000-0000
+        url: "users/rolebindings"
+        children: []
+      - name: 资源项目
+        id: 0001-1010-0110-0000
+        parent_id: 0001-1010-0000-0000
+        url: "users/projects"
+        children: []    
+      - name: 资源树
+        id: 0001-1010-0111-0000
+        parent_id: 0001-1010-0000-0000
+        url: "users/resources"
+        children: []   

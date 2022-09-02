@@ -1,0 +1,45 @@
+name: projects
+id: 0010-0000-0000-0000
+parent_id: 0000-0000-0000-0000
+base_url: "/webase/api/v2/projects/*"
+action:
+  - name: "create"
+    url: "/webase/api/v2/projects"
+  - name: "list"
+    url: "/webase/api/v2/projects"
+  - name: "get"
+    url: "/webase/api/v2/projects/:id"
+  - name: "delete"
+    url: "/webase/api/v2/projects/:id"
+  - name: "update"
+    url: "/webase/api/v2/projects/:id"
+children: 
+  - name: members
+    id: 0010-0001-0000-0000
+    parent_id: 0010-0000-0000-0000
+    base_url: "/webase/api/v2/projects/:project_id/members/*"
+    action:
+      - name: "create"
+        url: "/webase/api/v2/projects/:project_id/members"
+      - name: "list"
+        url: "/webase/api/v2/projects/:project_id/members"
+      - name: "delete"
+        url: "/webase/api/v2/projects/:project_id/members/:id"
+    children: []
+  # - name: resources
+  #   id: 0010-0010-0000-0000
+  #   parent_id: 0010-0000-0000-0000
+  #   base_url: "/webase/api/v2/projects/:project/resources"
+  #   action: 
+  #     - name: "create"
+  #       url: " "
+  #     - name: "list"
+  #       url: " "
+  #     - name: "get"
+  #       url: " "
+  #     - name: "delete"
+  #       url: " "
+  #     - name: "update"
+  #       url: " "
+  #   children: []
+      

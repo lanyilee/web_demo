@@ -1,0 +1,191 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dex-server
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: dex-server
+  template:
+    metadata:
+      labels:
+        app: dex-server
+    spec:
+      containers:
+        - name: dex-server
+          image: webase/dex:v2.26.1
+          args:
+          - "serve"
+          - "/etc/dex/cfg/config.yaml"
+          volumeMounts:
+          - mountPath: "/etc/dex/cfg"
+            name: config
+            readOnly: true
+          - mountPath: "/etc/dex/web/tls"
+            name: ssl
+            readOnly: true
+      volumes:
+        - configMap:
+            name: dex-server
+          name: config
+        - configMap:
+            name: dex-server-ssl
+          name: ssl
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dex-server
+spec:
+  selector:
+    app: dex-server
+  type: NodePort
+  ports:
+  - port: 5556
+    targetPort: 5556
+    nodePort: 35556
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dex-server-ssl
+data:
+  server.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIENDCCAhygAwIBAgIQbvQpaNxhve70J4XGU3h2OTANBgkqhkiG9w0BAQsFADAR
+    MQ8wDQYDVQQDEwZXZWJhc2UwHhcNMjAxMjE1MDUyMjA1WhcNMjIxMjE1MDUyMjA1
+    WjAVMRMwEQYDVQQDEwpzZXJ2ZXItZGV2MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+    MIIBCgKCAQEAs6iTCp4k/c63Kynj0Vwy2nGFE/AO4NZfWNVHa15ZSFkJpe8rvGwY
+    4kZ7iZSAlY0OOH+XCWQ8jeJvUZLRGSxaOcGnNe22hKf5hOtOkvHn094RBmKKzaQV
+    XdiV5b2GsjpAL8OznRiOHh96cOobciREM/rW8NS/OE6cZVrY8xsbrWLd3EacEcCl
+    lrdQWystlW/D2tB3bayigzPnSe5c35/P9h980dbfCOkuBt3xmrf8SuV4Pbz3aGuK
+    XNYIErNjA8L/cr2Q+mPEwqzRKZQSJMAYbpinx6qfCeZkI0cm+Kf3GOyyXCWbU7cs
+    5ll3TzPAVS7Z8dUC5fka9pGp6/TYgEVEVwIDAQABo4GDMIGAMA4GA1UdDwEB/wQE
+    AwIDuDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwHQYDVR0OBBYEFOHq
+    K1lkXVlM0Zs3x84xF/pHTBQTMB8GA1UdIwQYMBaAFL9wblikDqgXcfo3yuWPc1Ox
+    yZ9eMA8GA1UdEQQIMAaHBLwIBQEwDQYJKoZIhvcNAQELBQADggIBAI5c/jP2TSdu
+    fwK18/0trdsL4cUAncKPjl1mAwjMRlO1PvSZ9zhCO6/GEqLqhDb0IqXFcYWXkvlR
+    t5vLLJY3mO/b20l8VAx14Q7hnbU9lh0GozEkpse/HCQsnTJ69XhDzNPFEFgyETAj
+    V0L5uB6uAa4NpyYjpp81ONWfeaQVKRuxHERgH2pI8dOtlC7uEnD4K35IWWG+466z
+    XomeUH9fMx74VekXvqAPsA4LMsv55dBwp3jjmoUlOlazuzyCMU78hgKQIf7J5mXT
+    R+QUsfWTSMzZ5HRS1pPprXfGLiU1WP9hlqwp0L3mrrkhRfHwbBqQeVJ8LcOsgrhn
+    r3dSFukiovgcQwcdTlvl5hbFUtEDsP+UEyQraW56JfyaXmgSl/tbudjmNgVu/Q+P
+    +pRtpxxIf0X3TPboy1XdsRbdkOBB+MfBaA9oynacV0xBHUE9Fwy73RNb1WFKviEr
+    zsisQABhMVs1rAnm7yixPgDo6hPfwBoRsq2mOxqcxlJx5mW+AOy3ZqUCtLhYo9EW
+    kaUhKQ/JU6fQqsXnVUc4HtL+FO1yXfMmHa+D8trQ36XilBrPKhLYUNUNWdODrQL8
+    vcvALMcSWjkfr1bomBre6nl/SGsp7RS3eGe4/3wTVYGc/syAnxmSIIko8kNcDJ0T
+    VFErh+ZEwBjB04KIBpnIdO2u6CvPmFbS
+    -----END CERTIFICATE-----
+
+  server.key: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEowIBAAKCAQEAs6iTCp4k/c63Kynj0Vwy2nGFE/AO4NZfWNVHa15ZSFkJpe8r
+    vGwY4kZ7iZSAlY0OOH+XCWQ8jeJvUZLRGSxaOcGnNe22hKf5hOtOkvHn094RBmKK
+    zaQVXdiV5b2GsjpAL8OznRiOHh96cOobciREM/rW8NS/OE6cZVrY8xsbrWLd3Eac
+    EcCllrdQWystlW/D2tB3bayigzPnSe5c35/P9h980dbfCOkuBt3xmrf8SuV4Pbz3
+    aGuKXNYIErNjA8L/cr2Q+mPEwqzRKZQSJMAYbpinx6qfCeZkI0cm+Kf3GOyyXCWb
+    U7cs5ll3TzPAVS7Z8dUC5fka9pGp6/TYgEVEVwIDAQABAoIBAQCFOdHogsOdrygn
+    iwXU4BEZ6iqsUU1HL9E+19IBbdK5ksVT1ptRO7vsOCYuLQB5ZkOQZBVFsp4w/SRd
+    kokaqMgzokZz+FZr4wBmr/Pxhg/LDhcD7BlQS4hIsm7eEgCLtCSbBv3v1iC1d9Rd
+    XU2DBB/LiAzSRIGUqL7Tbl4JUSXiGXq/uMYBGQpZ1g7n4rs1OfAe85JMNiciWkgZ
+    cn9p5Lh2ohSTUaYGZsC1apWMoxKy9dXdMIC5zH22X6DiS2CZrpuEOZu9qNcm+ryX
+    HwcFG8XMQsOmc630Eem/A2KNTq38eKh/d3mXllh7m+AQ9L7FP6oxuKT3qi7qhGA0
+    Ym4LLVnxAoGBAMbVZHMV739tNQN4wF2iP6NhRsCOep7vzeglj17eHEUSPuvv65ky
+    To6DMIgvAWjsLkUlbiXErzmNst4HN5vOmIU081wgEwS9WEIumOBhinjl6aSYEh8f
+    pz3zIYUFCPc+OhDp0a07upQGJScPNNDRdK9xwDQukqQE9SmlSAqZ/5z5AoGBAOdP
+    2kwI8ZBB6rimNeNkk9nnw5lCMTYjBG2FUBM6HQyLgU+VT6kvV9cEpdDsMR/jZKAq
+    a9VR7xZcTqRCQS6UJnEEyIQHVaOv9tWb7e9ig2T9WktMVtjzBJcazVAnGaCoT09s
+    lhiWSyL+EdrEg4h0O6Ac+5kw0qcbZcxs/PmR6M/PAoGAHajXQxOSlj+EGPB6QX1i
+    YMyx8SdPw0WiQW7Y5B3dua/vEuLHEiMe9MM9ChN48l3IySe8NoYQXVV1yQjqkqNO
+    vRAY/TULoTldYQHybAYg0cf6AkNs8JeYKvWJmn4VyEvP/ZXjYSP3wPzprdnm1v9n
+    mIQvV5la5nyW1Y+CH5K5PoECgYAhdorlHxIbRX34cosvN1iwWHgSjuHhrBUy5utb
+    rLeRHgl6AubAWgoCIDkAzXqZ22KuTRTGipDlEjuKRc96NpKNHR0JBKqeAJHb+y/j
+    xsOtc32BkSyrPBT46zaylsV9WXwHyHS6X9vE1y6sEGva7L3Hfwni8o43AJ6sgUPj
+    svkUPwKBgCLP/nGLkbKZkkqoYZ1ABp+Sj86unxF4c/WTLhKon8Fk31uEDxVtw+WS
+    LUfbGx0xJK8TWTyXkK14NUgs2PvjuanpwWoVUGW5lTPi/57513z9kI5a3p03kGvT
+    txGYJeTEBa5gJLemSSMB/XGiSUKKtqL8X8FsGCqSHmgxIJo6XPO/
+    -----END RSA PRIVATE KEY-----
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dex-server
+data:
+  config.yaml: |
+    frontend:
+      issuer: 统一用户认证中心
+      theme: webase
+    issuer: https://188.8.5.1:35556/dex
+    web:
+      https: 0.0.0.0:5556
+      tlsCert: /etc/dex/web/tls/server.crt
+      tlsKey: /etc/dex/web/tls/server.key
+    storage:
+      type: mysql
+      config:
+        database: dex
+        user: root
+        password: WebaseQwer1234
+        host: webase-mysql
+        port: 3306
+        ssl:
+          mode: "false"
+    oauth2:
+      skipApprovalScreen: true
+    connectors:
+    - type: ldap
+      name: OpenLDAP
+      id: ldap
+      config:
+        host: openldap
+        insecureNoSSL: true
+        bindDN: cn=admin,dc=webase,dc=cloud
+        bindPW: Qwer1234
+        usernamePrompt: 用户名
+        userSearch:
+          baseDN: ou=user,dc=webase,dc=cloud
+          filter: "(objectClass=person)"
+          username: cn
+          idAttr: uid
+          emailAttr: mail
+          nameAttr: cn
+          preferredUsernameAttr: cn
+        groupSearch:
+          baseDN: ou=group,dc=example,dc=org
+          filter: "(objectClass=groupOfNames)"
+
+          userMatchers:
+          - userAttr: DN
+            groupAttr: member
+          nameAttr: cn
+
+    staticClients:
+    - id: webase-dev
+      redirectURIs:
+      - 'https://188.8.5.1:38401/public/oidc/callback'
+      name: 'WebaseDev'
+      secret: ZXhhbXBsZS1hcHAtc2VjcmV0
+    - id: webase-local
+      redirectURIs:
+      - 'https://127.0.0.1:8888/public/oidc/callback'
+      name: 'WebaseLocal'
+      secret: ZXhhbXBsZS1hcHAtc2VjcmV0
+    - id: harbor
+      redirectURIs:
+      - 'http://191.8.9.57:5000/c/oidc/callback'
+      name: 'Harbor'
+      secret: JXhhbXdsZS1hcgAtc3VjdmIo
+    - id: webase-test
+      redirectURIs:
+      - 'https://188.8.5.1:38402/public/oidc/callback'
+      name: 'WebaseTest'
+      secret: ZXhhbXBsZS1hcHAtc2VjcmV0
+    - id: gitlab
+      redirectURIs:
+      - 'http://191.8.9.24:11000/users/auth/openid_connect/callback'
+      name: 'Gitlab'
+      secret: ZXhhbXBsZS1hcHAtc2VjcmV0

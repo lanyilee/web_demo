@@ -1,0 +1,63 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: webase-mysql
+  labels:
+    app: webase-mysql
+spec:
+  selector:
+    matchLabels:
+      app: webase-mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: webase-mysql
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: host1
+      containers:
+      - image: library/mysql:5.7
+        name: mysql
+        args:
+        - "--ignore-db-dir=lost+found"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "WebaseQwer1234"
+        - name: MYSQL_DATABASE
+          value: webase
+        - name: MYSQL_USER
+          value: webase
+        - name: MYSQL_PASSWORD
+          value: "WebaseQwer1234"
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+        - name: tz-config
+          mountPath: /etc/localtime
+      volumes:
+      - name: mysql-persistent-storage
+        hostPath:
+          path: /opt/webase/data/mysql
+      - name: tz-config
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Shanghai
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webase-mysql
+spec:
+  selector:
+    app: webase-mysql
+  ports:
+  - protocol: "TCP"
+    port: 3306
+    targetPort: 3306
+    nodePort: 33306
+  type: NodePort

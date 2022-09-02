@@ -1,0 +1,16 @@
+name: harbor
+id: 0101-0000-0000-0000
+parent_id: 0000-0000-0000-0000
+base_url: "/harbor/*"
+action: 
+  - name: "create"
+    url: "/harbor/*"
+  - name: "list"
+    url: "/harbor/*"
+  - name: "get"
+    url: "/harbor/*"
+  - name: "delete"
+    url: "/harbor/*"
+  - name: "update"
+    url: "/harbor/*"
+children: []
